@@ -1,0 +1,83 @@
+﻿<krpano>
+	<!-- loading percent actions -->
+	<action name="loadingpercent_startloading">
+		set(loadingpercent_isloading, true);
+		set(layer[loadingpercent_text].visible, true);
+		asyncloop(loadingpercent_isloading,
+		mul(pv, progress.progress, 100);
+		roundval(pv,0);
+		txtadd(layer[loadingpercent_text].html, 'Loading……',get(pv), '%');
+		);
+	</action>
+	<action name="loadingpercent_stoploading">
+		set(loadingpercent_isloading, false);
+		set(layer[startpic_container].visible,false);
+	</action>
+	<layer name="startpic_container" preload="true" alpha="1" onloaded="tween(alpha,1.0);" handcursor="true" enabled="true" children="true" visible="true" zorder="90" type="container" maskchildren="true" keep="true" width="100%" height="100%" bgcolor="0xFFFFCC" bgalpha="1" >
+	<layer name="loadingpercent_text" keep="true"
+		preload="true"
+		url="%SWFPATH%/plugins/textfield.swf"
+		align="center"
+		y="10%"
+		background="false"
+		visible="true"
+		alpha="1"
+		css="color:#000000; font-family:Arial; font-weight:bold; font-size:22px; font-style:italic;" 
+		textshadow="2"
+		html=""
+	/>
+	<layer name="skin_title_logo3"
+		zorder="100"
+		keep="true"
+		x="0"
+		y="-80"
+		align="center"
+		url="mm.png"
+		scale="1"
+		alpha="0"
+		onloaded="tween(alpha,1.0);tween(layer[skin_title_pr].alpha,1.0);"
+		onclick="tween(layer[startpic_container].ox,-2500,1);
+		delayedcall(2,set(layer[startpic_container].enabled,false);
+		set(layer[startpic_container].visible,false);
+		stopdelayedcall(startpic1);stopdelayedcall(startpic2);"
+		enabled="false" 
+	/>
+	<layer name="skin_title_pr"
+		background="true"
+		backgroundcolor="0x999999"
+		roundedge="10"
+		backgroundalpha="0"
+		border="true"
+		bordercolor="0x999999"
+		borderalpha="0"
+		borderwidth="4.0"
+		glow="0"
+		glowcolor="0xCCCCCC"
+		visible="true"
+		keep="true"
+		alpha="0"
+		onloaded=""
+		children="false"
+		align="center"
+		zorder="100"
+		autowidth="auto"
+		height="40"
+		url="%SWFPATH%/plugins/textfield.swf"
+		html="加载期间展示页面"
+		css="text-align:center; color:#9B8179; font-family:SimHei; font-weight:bold; font-size:32px;"
+		x="0"
+		y="150"
+		onclick="tween(layer[startpic_container].ox,-2500,1);
+		delayedcall(2,set(layer[startpic_container].enabled,false);
+		set(layer[startpic_container].visible,false);
+		stopdelayedcall(startpic1);stopdelayedcall(startpic2);"
+		enabled="false"
+		/>
+	</layer>
+	<events name="startlogoevents" keep="true"
+	onxmlcomplete="loadingpercent_startloading();"
+	onloadcomplete="delayedcall(1, loadingpercent_stoploading());
+					set(layer[loadingpercent_text].visible, false);"
+	/>
+	
+</krpano>

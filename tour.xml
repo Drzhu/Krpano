@@ -1,0 +1,157 @@
+﻿<krpano version="1.19" title="Virtual Tour">
+	<include url="skin/vtourskin.xml" />
+	<include url="textstyles.xml" />
+	<include url="loadingpage.xml" />
+	<skin_settings maps="false"
+		maps_type="google"
+		maps_bing_api_key=""
+		maps_google_api_key=""
+		maps_zoombuttons="false"
+		gyro="true"
+		webvr="false"
+		webvr_gyro_keeplookingdirection="true"
+		webvr_prev_next_hotspots="true"
+		littleplanetintro="true"
+		title="false"
+		thumbs="true"
+		thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160"
+		thumbs_opened="false"
+		thumbs_text="false"
+		thumbs_dragging="false"
+		thumbs_onhoverscrolling="false"
+		thumbs_scrollbuttons="true"
+		thumbs_scrollindicator="false"
+		thumbs_loop="false"
+		tooltips_buttons="true"
+		tooltips_thumbs="true"
+		tooltips_hotspots="false"
+		tooltips_mapspots="false"
+		deeplinking="false"
+		loadscene_flags="MERGE"
+		loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
+		loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
+		loadscene_blend_next="SLIDEBLEND(0.5, 150, 0.5, easeInCirc   )"
+		loadingtext=""
+		layout_width="100%"
+		layout_maxwidth="814"
+		controlbar_width="-24"
+		controlbar_height="40"
+		controlbar_offset="20"
+		controlbar_offset_closed="-40"
+		controlbar_overlap.no-fractionalscaling="10"
+		controlbar_overlap.fractionalscaling="0"
+		design_skin_images="vtourskin.png"
+		design_bgcolor="0x2D3E50"
+		design_bgalpha="0"
+		design_bgborder="0"
+		design_bgroundedge="0"
+		design_bgshadow="0 4 10 0x000000 0"
+		design_thumbborder_bgborder="3 0xFFFFFF 1.0"
+		design_thumbborder_padding="0"
+		design_thumbborder_bgroundedge="0"
+		design_text_css="color:#FFFFFF; font-family:Arial;"
+		design_text_shadow="0"
+	/>
+	<style name="arrowspot4" url="skin/pfeil4.png" distorted="true" />
+	
+	<action name="startup" autorun="onstart">
+		if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); );
+		loadscene(get(startscene), null, MERGE);
+		if(startactions !== null, startactions());
+	</action>
+	
+	<layer name="button" 
+		title="bbbb"
+		visible="true" 
+		url="%SWFPATH%/plugins/textfield.swf" 
+		keep="true" 
+		children="false" 
+		enabled="true" 
+		align="righttop" 
+		y="100" x="20"  
+		width="120" 
+		autoheight="true"
+		border="false" 
+		background="true"  
+		backgroundcolor="0x000000" 
+		backgroundalpha="0.7" 
+		roundedge="5"
+		onclick="switch(autorotate.enabled);" 
+		html="关闭自动速览" 
+		ondown="switch(html,自动速览,关闭自动速览);"
+		css="text-align:center; color:#FFFFFF; font-family:Arial; font-weight:bold; font-size:15px;"
+	/>
+	<scene name="scene_dd" title="dd" onstart="" havevrimage="true" thumburl="panos/dd.tiles/thumb.jpg" lat="" lng="" heading="">
+		<!-- 控制自动旋转的设置，包括速度、等待时间等-->
+		<autorotate enabled="true"
+			waittime="1.0"
+			speed="-2.5"
+			horizon="0.0"
+			tofov="110.0"
+		/>
+		<view hlookat="0" vlookat="0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/dd.tiles/preview.jpg" />
+		<image type="CUBE" multires="true" tilesize="512" if="!webvr.isenabled">
+			<level tiledimagewidth="1792" tiledimageheight="1792">
+				<cube url="panos/dd.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="1024" tiledimageheight="1024">
+				<cube url="panos/dd.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+		<include url="snow.xml" />
+		<!-- place your scene hotspots here -->
+		<hotspot name="spot1" style="skin_hotspotstyle" ath="-99.049" atv="26.467" scale="0.40" linkedscene="scene_ss"/>
+		<hotspot name="spo2" style="arrowspot4" ath="0" atv="0" scale="0.40" onclick="transition(spo2,1.0,0.0,0,scene_ss,-86,3,45);" />
+		<!--<hotspot name="videospot"
+			url.html5="%SWFPATH%/plugins/videoplayer.js"
+			url.flash="%SWFPATH%/plugins/videoplayer.swf"
+			videourl="cats.mp4|cats.webm"
+			posterurl="cats-poster.jpg"
+			distorted="true"
+			ath="-163.033" 
+			atv="0.107"
+			edge="center"
+			scale="1.5"
+			rx="0"
+			ry="0"
+			rz="0"
+			ox="0"
+			oy="0"
+			loop="true"
+			html5controls="true"
+			pausedonstart="true"
+			onclick="togglepause();"
+		/>-->
+	</scene>
+	<scene name="scene_ss" title="ss" onstart="" havevrimage="true" thumburl="panos/ss.tiles/thumb.jpg" lat="" lng="" heading="">
+		<autorotate enabled="false" />
+		<view hlookat="0" vlookat="0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/ss.tiles/preview.jpg" />
+		<image type="CUBE" multires="true" tilesize="512" if="!webvr.isenabled">
+			<level tiledimagewidth="256" tiledimageheight="256">
+				<cube url="panos/ss.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+		<hotspot name="spot1" style="skin_hotspotstyle" ath="0.311" atv="32.218" linkedscene="scene_dd" />
+	</scene>
+	
+	<action name="transition">
+		tween(hotspot[%1].alpha, 0.0, 0.25, default);
+		tween(hotspot[%1].rotate, %4, 0.25, default);
+		tween(hotspot[%1].ath,    %2, 0.25, default);
+		tween(hotspot[%1].atv,    %3, 0.25, default, WAIT);
+		looktohotspot(%1);
+		set(plugin[loading].visible,true);
+		loadscene(%5, null, MERGE, BLEND(2));
+		copy(startview_hlookat, view.hlookat);
+		copy(startview_vlookat, view.vlookat);
+		copy(startview_fov, view.fov);
+		lookat(%6, %7, %8);
+		wait(LOAD);
+		set(plugin[loading].visible,false);
+		wait(BLEND);
+		oninterrupt(break);
+		lookto(get(startview_hlookat), get(startview_vlookat), get(startview_fov), smooth(60,-60,180));
+	</action>
+</krpano>
